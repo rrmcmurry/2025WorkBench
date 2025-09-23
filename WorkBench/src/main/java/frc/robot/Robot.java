@@ -92,7 +92,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     motor.set(-1.0);
-
   }
 
   /** This function is called once when the robot is disabled. */
