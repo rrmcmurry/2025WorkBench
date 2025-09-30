@@ -18,7 +18,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     motor = new WPI_TalonSRX(1);
-    camera = new VisionSubsystem();  
+    camera = new VisionSubsystem();
   }
 
   @Override
@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    camera.teleopPeriodic();
     if (camera.targetVisible) {
       motor.set(-1.0);
     }
