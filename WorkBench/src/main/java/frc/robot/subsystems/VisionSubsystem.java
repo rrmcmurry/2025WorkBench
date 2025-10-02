@@ -7,6 +7,7 @@ public class VisionSubsystem extends SubsystemBase{
   PhotonCamera camera;
   public boolean targetVisible;
   public double targetYaw;  
+  public double targetArea;
   
 
   public VisionSubsystem() {
@@ -18,6 +19,7 @@ public class VisionSubsystem extends SubsystemBase{
   public void teleopPeriodic(){
     targetVisible = false;
     targetYaw = 0.0;
+    targetArea = 0.0;
     var results = camera.getAllUnreadResults();
     if (!results.isEmpty()) {
       var result = results.get(results.size() - 1);
@@ -26,6 +28,7 @@ public class VisionSubsystem extends SubsystemBase{
           if (target.getFiducialId() == 1) {
             targetVisible = true;
             targetYaw = target.getYaw();
+            targetArea = target.getArea();
           }
         }
       }

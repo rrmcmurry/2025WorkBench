@@ -9,7 +9,8 @@ import frc.robot.subsystems.VisionSubsystem;
 
 public class Robot extends TimedRobot {
   
-  private WPI_TalonSRX motor;
+  private WPI_TalonSRX motor1;
+  private WPI_TalonSRX motor2;
   private VisionSubsystem camera;
 
   public Robot() {}
@@ -17,7 +18,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    motor = new WPI_TalonSRX(1);
+    motor1 = new WPI_TalonSRX(1);
+    motor2 = new WPI_TalonSRX(2);
     camera = new VisionSubsystem();
   }
 
@@ -36,17 +38,20 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     camera.teleopPeriodic();
-    if (camera.targetVisible) {
-      motor.set(-1.0);
+    if ((camera.targetVisible) && (Math.abs(camera.targetYaw + 8.0) < 0.1 ) && (Math.abs(camera.targetArea) < 3.0)) {
+      motor1.set(-1.0);
+      motor2.set(1.0);
     }
     else {
-      motor.set(0);
+      motor1.set(0);
+      motor2.set(0);
     }    
   }
 
   @Override
   public void disabledInit() {
-    motor.set(0);
+    motor1.set(0);
+    motor2.set(0);
   }
 
   @Override
