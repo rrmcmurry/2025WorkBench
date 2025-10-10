@@ -12,6 +12,9 @@ public class Robot extends TimedRobot {
   private WPI_TalonSRX motor1;
   private WPI_TalonSRX motor2;
   private VisionSubsystem camera;
+  private final double maxArea = 3.0;
+  private final double yawOffset = 8.0;
+  private final double yawMargin = 0.1;
 
   public Robot() {}
 
@@ -38,7 +41,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     camera.teleopPeriodic();
-    if ((camera.targetVisible) && (Math.abs(camera.targetYaw + 8.0) < 0.1 ) && (Math.abs(camera.targetArea) < 3.0)) {
+    if ((camera.targetVisible) && (Math.abs(camera.targetYaw + yawOffset) < yawMargin ) && (Math.abs(camera.targetArea) < maxArea)) {
       motor1.set(-1.0);
       motor2.set(1.0);
     }
