@@ -39,14 +39,14 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     
     if (controller.getAButton()) {
-      motor1.set(-1.0);      
+      motor1.set(1.0);      
     }
     else {
       motor1.stopMotor();
     }
 
     if (controller.getBButton()) {
-      motor2.set(-1.0);      
+      motor2.set(1.0);      
     }
     else {
       motor2.stopMotor();
