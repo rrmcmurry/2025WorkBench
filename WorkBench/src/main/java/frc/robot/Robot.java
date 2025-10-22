@@ -5,13 +5,13 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.subsystems.VisionSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class Robot extends TimedRobot {
   
   private WPI_TalonSRX motor1;
   private WPI_TalonSRX motor2;
-  private VisionSubsystem camera;
+  private XboxController controller;
 
   public Robot() {}
 
@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     motor1 = new WPI_TalonSRX(1);
     motor2 = new WPI_TalonSRX(2);
-    camera = new VisionSubsystem();
+    controller = new XboxController(0);
   }
 
   @Override
@@ -37,22 +37,24 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    camera.teleopPeriodic();
-    if ((camera.targetVisible) && (Math.abs(camera.targetYaw + 8.0) < 0.1 ) && (Math.abs(camera.targetArea) < 3.0)) {
-      motor1.set(-1.0);
-      motor2.set(1.0);
+    
+    if (controller.getAButton()) {
+      motor1.set(-1.0);      
     }
     else {
-      motor1.set(0);
-      motor2.set(0);
+      motor1.stopMotor();
+    }
+
+    if (controller.getBButton()) {
+      motor2.set(-1.0);      
+    }
+    else {
+      motor2.stopMotor();
     }    
   }
 
   @Override
-  public void disabledInit() {
-    motor1.set(0);
-    motor2.set(0);
-  }
+  public void disabledInit() {}
 
   @Override
   public void disabledPeriodic() {}
